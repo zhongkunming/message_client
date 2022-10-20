@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:message_client/http_client.dart';
 
 import 'dart:isolate';
-import 'package:message_client/notification.dart';
+import 'package:message_client/notification/notification.dart';
+
+import 'main.dart';
 
 // const host = "192.168.80.173:8080";
 const host = "39.103.133.90:8080";

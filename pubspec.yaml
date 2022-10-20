@@ -39,6 +39,7 @@ dependencies:
   flutter_local_notifications: ^12.0.2
   http: ^0.13.5
   window_manager: ^0.2.7
+  win_toast: ^0.1.1
 
 dev_dependencies:
   flutter_test:

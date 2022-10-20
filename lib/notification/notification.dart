@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:message_client/notification/notification_interface.dart';
 
-var notification = Notification();
 
-class Notification {
+class Notification implements NotificationInterFace {
   final FlutterLocalNotificationsPlugin np = FlutterLocalNotificationsPlugin();
 
+  @override
   init() async {
     var android = const AndroidInitializationSettings("@mipmap/ic_launcher");
     var darwin = const DarwinInitializationSettings();
@@ -13,14 +14,17 @@ class Notification {
     await np.initialize(
         InitializationSettings(
             android: android, iOS: darwin, macOS: darwin, linux: linux),
-        onDidReceiveNotificationResponse: selectNotification,
-        onDidReceiveBackgroundNotificationResponse: selectNotification);
+        onDidReceiveNotificationResponse: callback,
+        onDidReceiveBackgroundNotificationResponse: callback);
   }
 
   /// 点击通知回调事件
-  void selectNotification(NotificationResponse payload) async {
-    print("its callback");
-    debugPrint('notification payload: $payload');
+  @override
+  void callback(dynamic obj) async {
+    if (obj is NotificationResponse) {
+      NotificationResponse payload = obj;
+      print("its callback $payload");
+    }
   }
 
   /// params为点击通知时，可以拿到的参数，title和body仅仅是展示作用
@@ -31,6 +35,7 @@ class Notification {
   /// notification.send("title", "content",params: json.encode(params));
   ///
   /// notificationId指定时，不在根据时间生成
+  @override
   void send(String title, String body, {int? notificationId, String? params}) {
     // 构建描述
     var androidDetails = const AndroidNotificationDetails(

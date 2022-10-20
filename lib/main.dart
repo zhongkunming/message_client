@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:message_client/notification.dart';
+import 'package:message_client/notification/notification.dart';
 import 'package:message_client/message_handler.dart';
 import 'package:window_manager/window_manager.dart';
+import 'dart:io';
 
+import 'notification/notification_interface.dart';
+import 'notification/win_notification.dart';
+import 'notification/notification.dart' as otherNotification;
+
+late NotificationInterFace notification;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //初始化本地通知
-  await notification.init();
+
+  if (Platform.isWindows) {
+    notification = WinNotification();
+    await notification.init();
+  } else {
+    notification = otherNotification.Notification();
+    await notification.init();
+  }
+
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(

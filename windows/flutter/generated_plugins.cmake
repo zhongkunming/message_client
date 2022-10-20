@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   screen_retriever
+  win_toast
   window_manager
 )
 
