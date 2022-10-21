@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:message_client/notification/notification_interface.dart';
 
-
-class Notification implements NotificationInterFace {
+class OtherNotification implements NotificationInterFace {
   final FlutterLocalNotificationsPlugin np = FlutterLocalNotificationsPlugin();
 
   @override
